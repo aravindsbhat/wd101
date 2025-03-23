@@ -5,7 +5,8 @@ const dob = document.getElementById("dob");
 dob.addEventListener("blur", () => verifyAge(dob));
 
 function validate(element) {
-  if (element.validity.typeMismatch) {
+  const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]$/;
+  if (!emailRegex.test(element.value)) {
     element.setCustomValidity("The email is not in the correct format.");
     element.reportValidity();
   } else element.setCustomValidity("");
@@ -49,10 +50,12 @@ const displayEntries = () => {
     })
     .join("\n");
 
-  const table = `<table class="border px-4 py-2"><tr><th class="border px-4 py-2">Name</th><th class="border px-4 py-2">Email</th><th class="border px-4 py-2">Password</th><th class="border px-4 py-2">Date of Birth</th><th class="border px-4 py-2">Accepted terms and conditions?</th>${tableEntries}</table>`;
+  const table = `${tableEntries}`;
   document.getElementById("entries").innerHTML = table;
 };
+
 let users = retrieveEntries();
+displayEntries();
 const saveUserForm = (e) => {
   e.preventDefault();
   const name = document.getElementById("name").value;
@@ -72,7 +75,6 @@ const saveUserForm = (e) => {
 
   localStorage.setItem("users", JSON.stringify(users));
   displayEntries();
-  document.getElementById("entrybox").classList.remove("hidden");
 };
 
 let form = document.getElementById("form");
