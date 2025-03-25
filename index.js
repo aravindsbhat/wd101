@@ -4,6 +4,7 @@ email.addEventListener("input", () => validate(email));
 const dob = document.getElementById("dob");
 dob.addEventListener("blur", () => verifyAge(dob));
 
+localStorage.clear();
 function validate(element) {
   const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   if (!emailRegex.test(element.value)) {
