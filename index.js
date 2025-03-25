@@ -5,7 +5,7 @@ const dob = document.getElementById("dob");
 dob.addEventListener("blur", () => verifyAge(dob));
 
 function validate(element) {
-  const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]$/;
+  const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   if (!emailRegex.test(element.value)) {
     element.setCustomValidity("The email is not in the correct format.");
     element.reportValidity();
@@ -20,7 +20,11 @@ function verifyAge(element) {
   if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())) {
     age--;
   }
-  if (age < 18 || age > 55) {
+  if (
+    age < 18 ||
+    age > 55 ||
+    (age > 54 && (month > 0 || today.getDate() > birthDate.getDate()))
+  ) {
     element.setCustomValidity(
       "You must be between 18 and 55 years of age to continue."
     );
