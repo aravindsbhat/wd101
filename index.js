@@ -16,23 +16,17 @@ function verifyAge(element) {
   const today = new Date();
   const birthDate = new Date(element.value);
   let age = today.getFullYear() - birthDate.getFullYear();
-  const month = today.getMonth() - birthDate.getMonth();
-  if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())) {
-    age--;
-  }
-  if (
-    age < 18 ||
-    age > 55 ||
-    (age > 54 && (month > 0 || today.getDate() > birthDate.getDate()))
-  ) {
+  if (age < 18 || age > 55) {
     element.setCustomValidity(
       "You must be between 18 and 55 years of age to continue."
     );
     element.reportValidity();
   } else element.setCustomValidity("");
 }
+
 const retrieveEntries = () => {
-  let users = JSON.parse(localStorage.getItem("users"));
+  let users = [];
+  users = JSON.parse(localStorage.getItem("users"));
   if (users) {
     return users;
   }
